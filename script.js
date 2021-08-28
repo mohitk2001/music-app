@@ -16,17 +16,22 @@ const musicPlayer = [
     track_name: "Where You Been",
     image: "Where_you_been",
     song: "Where_You_Been",
-  }
+  },
 ];
-let index=0;
+let index = 0;
 const play = document.getElementById("play");
 const next = document.getElementById("next");
 const prev = document.getElementById("prev");
-const logo_Of_track=document.getElementById("logoof_track")
-const music_access=document.getElementById("music_access")
-const title_song=document.querySelector(".title")
-const artist_song=document.querySelector(".artist")
+const logo_Of_track = document.getElementById("logoof_track");
+const music_access = document.getElementById("music_access");
+const title_song = document.querySelector(".title");
+const artist_song = document.querySelector(".artist");
 let isPlaying = false;
+title_song.textContent = musicPlayer[index].track_name;
+logo_Of_track.src = `./images/${musicPlayer[index].image}.jpg`;
+title_song.textContent = musicPlayer[index].track_name;
+artist_song.textContent = musicPlayer[index].artist_name;
+music_access.src=`./music/${musicPlayer[index].song}.mp3`;
 const musicPlay = () => {
   play.classList.replace("fa-play", "fa-pause");
   document.getElementById("music_access").play();
@@ -40,34 +45,39 @@ play.addEventListener("click", () => {
   console.log(isPlaying);
   isPlaying ? musicPlay() : musicPause();
 });
-next.addEventListener("click",()=>{
-    if(musicPlayer.length>index){
-        index++;
-        console.log(index)
-        logo_Of_track.src=`./images/${musicPlayer[index].image}.jpg`;
-        title_song.textContent=musicPlayer[index].track_name
-        artist_song.textContent=musicPlayer[index].artist_name
-        
-    }
-    else{
-        console.log(index)
-    }
-    console.log(musicPlayer.length)
-    // else if(index>musicPlayer.length){
-    //     index=0
-    //     console.log(index)
-    //     logo_Of_track.src=`./images/${musicPlayer[index].image}.jpg`;
-    //     title_song.textContent=musicPlayer[0].track_name
-    //     artist_song.textContent=musicPlayer[0].artist_name
-    // }
-    
-})
-prev.addEventListener("click",()=>{
-    if(index>0)
-    console.log("prev",--index);
-    else if(index<0){
-        index=0;
-        console.log(index)
-    }
-})
-
+next.addEventListener("click", () => {
+  index++;
+  if (musicPlayer.length > index) {
+    logo_Of_track.src = `./images/${musicPlayer[index].image}.jpg`;
+    title_song.textContent = musicPlayer[index].track_name;
+    artist_song.textContent = musicPlayer[index].artist_name;
+    music_access.src=`./music/${musicPlayer[index].song}.mp3`;
+    musicPlay();
+  } else if(musicPlayer.length<=index){
+    index=0;
+    logo_Of_track.src = `./images/${musicPlayer[index].image}.jpg`;
+    title_song.textContent = musicPlayer[index].track_name;
+    artist_song.textContent = musicPlayer[index].artist_name;
+    music_access.src=`./music/${musicPlayer[index].song}.mp3`;
+    musicPlay();
+  }  
+});
+console.log(index)
+prev.addEventListener("click", () => {
+  --index;
+  if(index<0){
+    index=musicPlayer.length-1;
+    logo_Of_track.src = `./images/${musicPlayer[index].image}.jpg`;
+    title_song.textContent = musicPlayer[index].track_name;
+    artist_song.textContent = musicPlayer[index].artist_name;
+    music_access.src=`./music/${musicPlayer[index].song}.mp3`;
+    musicPlay();
+  }
+  else if(index>=0){
+    logo_Of_track.src = `./images/${musicPlayer[index].image}.jpg`;
+    title_song.textContent = musicPlayer[index].track_name;
+    artist_song.textContent = musicPlayer[index].artist_name;
+    music_access.src=`./music/${musicPlayer[index].song}.mp3`;
+    musicPlay();
+  }
+});
